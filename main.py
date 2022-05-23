@@ -1,16 +1,29 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import tkinter as tk
+import json
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+projects = []
+with open('Projects.txt') as f:
+    for line in f:
+        if line[-1] == "\n":
+            projects.append(line[:-1])
+        else:
+            projects.append(line)
 
+master = tk.Tk()
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+buttons = [tk.Button(master), tk.Button(master), tk.Button(master), tk.Button(master), tk.Button(master),
+           tk.Button(master), tk.Button(master), tk.Button(master), tk.Button(master), tk.Button(master)]
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for index, project in enumerate(projects):
+    tk.Label(master, text=project).grid(row=index)
+    buttons[index].grid(row=index, column=1, ipadx=20, ipady=20)
+
+data = {
+  'index1': 1,
+  'index2': 2
+}
+with open('logged_time.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=4)
+
+tk.mainloop()
